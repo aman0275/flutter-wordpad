@@ -8,15 +8,60 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final wp = WordPair.random();
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.lime[200]),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('WordPad'),
-        ),
-        body: Center(
-          child: Text(wp.asPascalCase),
-        ),
+      theme: ThemeData(primaryColor: Colors.cyan[100]),
+      home: RandomWords(),
+    );
+  }
+}
+
+class RandomWords extends StatefulWidget {
+  RandomWords({Key? key}) : super(key: key);
+
+  @override
+  _RandomWordsState createState() => _RandomWordsState();
+}
+
+class _RandomWordsState extends State<RandomWords> {
+  @override
+  var nam = ["aman", "manjit", "intaz", "Sorab"];
+  final saved = Set<String>();
+
+  Widget _buildList() {
+    return (ListView.builder(
+      itemCount: 4,
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: (context, item) {
+        return _buildRow(nam[item], item);
+      },
+    ));
+  }
+
+  Widget _buildRow(String nu, int item) {
+    final alreadythere = saved.contains(nu);
+    return ListTile(
+        leading: Icon(Icons.list),
+        trailing: Icon(alreadythere ? Icons.favorite : Icons.favorite_border,
+            color: alreadythere ? Colors.red[600] : null),
+        onTap: () {
+          setState(() {
+            if (alreadythere) {
+              saved.remove(nu);
+            } else {
+              saved.add(nu);
+            }
+          });
+        },
+        title: Text("Stud $item -> " + nu));
+  }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Attendence Shortage'),
+        centerTitle: true,
+        backgroundColor: Colors.cyan[400],
       ),
+      body: _buildList(),
     );
   }
 }
