@@ -39,7 +39,7 @@ class _RandomWordsState extends State<RandomWords> {
   Widget _buildRow(String nu, int item) {
     final alreadythere = saved.contains(nu);
     return ListTile(
-        leading: Icon(Icons.list),
+        leading: Icon(Icons.male),
         trailing: Icon(alreadythere ? Icons.favorite : Icons.favorite_border,
             color: alreadythere ? Colors.red[600] : null),
         onTap: () {
@@ -54,10 +54,15 @@ class _RandomWordsState extends State<RandomWords> {
         title: Text("Stud $item -> " + nu));
   }
 
+  void _pushSaved() {}
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Attendence Shortage'),
+        actions: <Widget>[
+          IconButton(onPressed: _pushSaved, icon: Icon(Icons.list))
+        ],
         centerTitle: true,
         backgroundColor: Colors.cyan[400],
       ),
